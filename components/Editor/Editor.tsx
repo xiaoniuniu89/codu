@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -6,21 +6,16 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 
 // plugins
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-
+import {
+  INSERT_ORDERED_LIST_COMMAND,
+  INSERT_UNORDERED_LIST_COMMAND,
+  ListItemNode,
+  ListNode,
+} from "@lexical/list";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 
 // nodes
 import { HeadingNode, $createHeadingNode } from "@lexical/rich-text";
-
-// serializers
-import {
-  $convertFromMarkdownString,
-  $convertToMarkdownString,
-  TRANSFORMERS,
-} from "@lexical/markdown";
-import { $generateHtmlFromNodes } from "@lexical/html";
-
-import styles from "./Editor.module.css";
 import {
   $createParagraphNode,
   $createTextNode,
@@ -30,15 +25,16 @@ import {
   EditorState,
   LexicalNode,
 } from "lexical";
-import { $setBlocksType } from "@lexical/selection";
-import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+
+// serializers
 import {
-  INSERT_ORDERED_LIST_COMMAND,
-  INSERT_UNORDERED_LIST_COMMAND,
-  ListItemNode,
-  ListNode,
-} from "@lexical/list";
+  $convertFromMarkdownString,
+  $convertToMarkdownString,
+} from "@lexical/markdown";
 import { PLAYGROUND_TRANSFORMERS } from "./plugins/MarkdownTransformers";
+
+// utils
+import { $setBlocksType } from "@lexical/selection";
 
 const theme = {};
 
@@ -48,7 +44,7 @@ function onError(error: Error): void {
 
 const Editor: React.FC<{
   onChange: React.ChangeEvent<HTMLInputElement>;
-  initialValue?: any;
+  initialValue: string;
 }> = ({ onChange, initialValue }) => {
   const [initialValueSet, setInitialValueSet] = useState(false);
 

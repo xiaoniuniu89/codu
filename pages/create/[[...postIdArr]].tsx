@@ -271,7 +271,6 @@ const Create: NextPage = () => {
       const { body } = data;
 
       if (body === undefined || body.trim() === "") {
-        // Check if body is undefined or contains only whitespace characters
         setInitialValue(" ");
       } else {
         setInitialValue(body);

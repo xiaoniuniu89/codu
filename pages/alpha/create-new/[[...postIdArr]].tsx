@@ -252,7 +252,7 @@ const Create: NextPage = () => {
   };
 
   useEffect(() => {
-    if (isNewPost) {
+    if (!postId) {
       setSlateInitialValue(htmlToSlate("<p></p>", htmlToSlateConfig));
     } else if (data) {
       const { body } = data;
@@ -260,7 +260,7 @@ const Create: NextPage = () => {
       updateImageNodes(slateValue);
       setSlateInitialValue(slateValue);
     }
-  }, [data, isNewPost]);
+  }, [data]);
 
   useEffect(() => {
     if (viewPreview === true) {

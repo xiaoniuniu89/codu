@@ -27,12 +27,22 @@ body {
   [multiple],
   textarea,
   select {
-    @apply mt-1 bg-black focus:outline-none focus:ring-2 focus:ring-neutral-300 ring-offset-1 block w-full shadow-sm sm:text-sm border-white border-2 px-2 py-2 disabled:opacity-50 text-white;
+    @apply mt-1 focus:outline-none focus:ring-2 focus:ring-neutral-300 ring-offset-1 block w-full shadow-sm sm:text-sm border-white border-2 px-2 py-2 disabled:opacity-50 text-white;
   }
 
   label {
     @apply block text-sm font-medium text-white;
   }
+}
+
+@layer base {
+  ol, ul {
+    list-style-type: initial;
+    padding-left: 20px;
+}
+ol {
+  list-style-type: decimal;
+}
 }
 
 .primary-button {
@@ -230,9 +240,6 @@ table {
   margin: 0 !important;
 }
 
-.slateP > p {
-  margin: 0 !important;
-}
 
 /* Loading animation */
 .loader-dots div {
@@ -255,113 +262,17 @@ table {
   animation: loader-dots3 0.6s infinite;
 }
 
-/* plate editor style overrides  */
-/* TODO: we should set what styles we can in the components directly */
-
-input[placeholder="Paste link"] {
-  color: black;
+[data-lexical-editor="true"] h1 {
+  font-size: 2em;
 }
 
-input[placeholder="Text to display"] {
-  color: black;
+[data-lexical-editor="true"] h2 {
+  font-size: 1.8em;
 }
 
-.slate-kbd,
-.slate-code_line {
-  color: black;
+[data-lexical-editor="true"] h2 {
+  font-size: 1.6em;
 }
-
-[class^="PlateFloatingLink"],
-[class^="PlateFloatingMedia"] {
-  color: black;
-}
-
-[data-testid="CodeBlockSelectElement"] {
-  position: absolute;
-  right: 10px;
-  width: 20px;
-}
-
-[data-slate-editor="true"] {
-}
-
-.slate-code_block {
-  min-height: 60px;
-}
-
-.slate-code_block select {
-  position: absolute;
-  right: 10px;
-  width: 25%;
-}
-
-.slate-ImageElement-caption {
-  max-height: 22px;
-}
-
-.slate-ul {
-  list-style-type: disc;
-}
-
-.slate-ol {
-  list-style-type: decimal;
-}
-
-.slate-MediaEmbedElement-handleRight,
-.slate-MediaEmbedElement-handleLeft,
-.slate-MediaEmbedElement-caption {
-  display: none !important;
-}
-
-.jsCcLr {
-  padding-bottom: 10px !important;
-}
-
-.slate-a,
-.slateP a {
-  color: #1e90ff !important;
-  text-decoration: none !important;
-  cursor: pointer;
-}
-
-.slate-a:hover,
-.slateP a:hover {
-  color: #87ceeb !important;
-  text-decoration: none !important;
-}
-
-.slate-blockquote,
-blockquote {
-  font-style: italic;
-  color: #f3f4f6 !important;
-  border-left-width: 0.25rem !important;
-  padding-left: 1em !important;
-  border-color: #f3f4f6 !important;
-}
-
-.slate-ImageElement-caption {
-  color: #9ca3af !important;
-  font-size: 0.8em !important;
-}
-
-.slateP li,
-.slateP ol,
-.slateP ul {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.slate-li {
-  color: #d1d5db !important;
-  padding-left: 0.4em;
-  line-height: 1.2em;
-}
-
-.slate-li::marker {
-  color: #4b5563;
-}
-
-/* end of plate editor styles  */
 
 @keyframes loader-dots1 {
   0% {

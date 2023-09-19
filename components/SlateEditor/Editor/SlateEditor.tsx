@@ -109,7 +109,7 @@ const SlateEditor = ({
         editableProps={editableProps}
         initialValue={initialValue}
         plugins={plugins}
-        onChange={handleChange}
+        onChange={() => console.log('changing')}
       >
         <HooveringToolbar />
       </Plate>

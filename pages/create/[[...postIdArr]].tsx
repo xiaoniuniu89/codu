@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect, Fragment, useRef } from "react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useForm } from "react-hook-form";
-import CustomTextareaAutosize from "../../components/CustomTextareAutosize/CustomTextareaAutosize";
+import { useForm, Controller } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
@@ -16,13 +15,14 @@ import Layout from "../../components/Layout/Layout";
 import { PromptDialog } from "../../components/PromptService/PromptService";
 
 import { trpc } from "../../utils/trpc";
-import { removeMarkdown } from "../../utils/removeMarkdown";
 import { useDebounce } from "../../hooks/useDebounce";
 import Markdoc from "@markdoc/markdoc";
 import { useMarkdownHotkeys } from "../../markdoc/editor/hotkeys/hotkeys.markdoc";
 import { useMarkdownShortcuts } from "../../markdoc/editor/shortcuts/shortcuts.markdoc";
+import { removeMarkdown } from "../../utils/removeMarkdown";
 import { markdocComponents } from "../../markdoc/components";
 import { config } from "../../markdoc/config";
+import Editor from "../../components/Editor/Editor";
 
 const Create: NextPage = () => {
   const router = useRouter();
@@ -41,6 +41,8 @@ const Create: NextPage = () => {
   const [delayDebounce, setDelayDebounce] = useState<boolean>(false);
   const allowUpdate = unsavedChanges && !delayDebounce;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [initialValue, setInitialValue] = useState("")
+
 
   useMarkdownHotkeys(textareaRef);
   useMarkdownShortcuts(textareaRef);
@@ -51,13 +53,14 @@ const Create: NextPage = () => {
     watch,
     reset,
     getValues,
+    control,
+    trigger,
     formState: { isDirty },
   } = useForm<SavePostInput>({
     mode: "onSubmit",
     defaultValues: {
       title: "",
       body: "",
-      showComments: true,
     },
   });
 
@@ -121,7 +124,8 @@ const Create: NextPage = () => {
       ...data,
       tags,
       canonicalUrl: data.canonicalUrl || undefined,
-      excerpt: data.excerpt || removeMarkdown(data.body, {}).substring(0, 155),
+      // excerpt: data.excerpt || removeMarkdown(data.body, {}).substring(0, 155),
+      excerpt: "excerpt",
     };
     return formData;
   };
@@ -259,6 +263,21 @@ const Create: NextPage = () => {
         setUnsavedChanges(true);
     }
   };
+
+  useEffect(() => {
+    if (!postId) {
+      setInitialValue(" ");
+    } else if (data) {
+      const { body } = data;
+
+      if (body === undefined || body.trim() === "") {
+        // Check if body is undefined or contains only whitespace characters
+        setInitialValue(" ");
+      } else {
+        setInitialValue(body);
+      }
+    }
+  }, [data, postId]);
 
   return (
     <Layout>
@@ -526,13 +545,29 @@ const Create: NextPage = () => {
                               {...register("title")}
                             />
 
-                            <CustomTextareaAutosize
+                            {/* <CustomTextareaAutosize
                               placeholder="Enter your content here 💖"
                               className="border-none text-lg outline-none shadow-none mb-8 bg-neutral-900 focus:bg-black"
                               minRows={25}
-                              {...register("body")}
+                              // {...register("body")}
                               inputRef={textareaRef}
-                            />
+                            /> */}
+                            <div className="relative">
+                              {initialValue && 
+                              <Controller
+                                name="body"
+                                control={control}
+                                render={({ field }) => (
+                                  <Editor
+                                    {...field}
+                                    initialValue={initialValue}
+                                  />
+                                )}
+                              />
+                              
+                              }
+                                
+                            </div>
 
                             <div className="flex justify-between items-center">
                               <>

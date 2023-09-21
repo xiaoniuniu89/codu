@@ -262,17 +262,14 @@ table {
   animation: loader-dots3 0.6s infinite;
 }
 
-[data-lexical-editor="true"] h1 {
+[data-lexical-editor="true"] h3 {
   font-size: 2em;
 }
 
-[data-lexical-editor="true"] h2 {
+[data-lexical-editor="true"] h4 {
   font-size: 1.8em;
 }
 
-[data-lexical-editor="true"] h2 {
-  font-size: 1.6em;
-}
 
 @keyframes loader-dots1 {
   0% {

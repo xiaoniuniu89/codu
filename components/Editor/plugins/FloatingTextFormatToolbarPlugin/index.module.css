@@ -1,4 +1,6 @@
-.floating-text-format-popup {
+/* styles.module.css */
+
+.floatingTextFormatPopup {
   display: flex;
   background: #fff;
   padding: 4px;
@@ -15,7 +17,7 @@
   will-change: transform;
 }
 
-.floating-text-format-popup button.popup-item {
+.floatingTextFormatPopup button.popupItem {
   border: 0;
   display: flex;
   background: none;
@@ -25,15 +27,15 @@
   vertical-align: middle;
 }
 
-.floating-text-format-popup button.popup-item:disabled {
+.floatingTextFormatPopup button.popupItem:disabled {
   cursor: not-allowed;
 }
 
-.floating-text-format-popup button.popup-item.spaced {
+.floatingTextFormatPopup button.popupItem.spaced {
   margin-right: 2px;
 }
 
-.floating-text-format-popup button.popup-item i.format {
+.floatingTextFormatPopup button.popupItem i.format {
   background-size: contain;
   height: 18px;
   width: 18px;
@@ -43,23 +45,23 @@
   opacity: 0.6;
 }
 
-.floating-text-format-popup button.popup-item:disabled i.format {
+.floatingTextFormatPopup button.popupItem:disabled i.format {
   opacity: 0.2;
 }
 
-.floating-text-format-popup button.popup-item.active {
+.floatingTextFormatPopup button.popupItem.active {
   background-color: rgba(223, 232, 250, 0.3);
 }
 
-.floating-text-format-popup button.popup-item.active i {
+.floatingTextFormatPopup button.popupItem.active i {
   opacity: 1;
 }
 
-.floating-text-format-popup .popup-item:hover:not([disabled]) {
+.floatingTextFormatPopup .popupItem:hover:not([disabled]) {
   background-color: #eee;
 }
 
-.floating-text-format-popup select.popup-item {
+.floatingTextFormatPopup select.popupItem {
   border: 0;
   display: flex;
   background: none;
@@ -74,12 +76,12 @@
   text-overflow: ellipsis;
 }
 
-.floating-text-format-popup select.code-language {
+.floatingTextFormatPopup select.codeLanguage {
   text-transform: capitalize;
   width: 130px;
 }
 
-.floating-text-format-popup .popup-item .text {
+.floatingTextFormatPopup .popupItem .text {
   display: flex;
   line-height: 20px;
   vertical-align: middle;
@@ -92,7 +94,7 @@
   text-align: left;
 }
 
-.floating-text-format-popup .popup-item .icon {
+.floatingTextFormatPopup .popupItem .icon {
   display: flex;
   width: 20px;
   height: 20px;
@@ -102,7 +104,7 @@
   background-size: contain;
 }
 
-.floating-text-format-popup i.chevron-down {
+.floatingTextFormatPopup i.chevronDown {
   margin-top: 3px;
   width: 16px;
   height: 16px;
@@ -110,7 +112,7 @@
   user-select: none;
 }
 
-.floating-text-format-popup i.chevron-down.inside {
+.floatingTextFormatPopup i.chevronDown.inside {
   width: 16px;
   height: 16px;
   display: flex;
@@ -120,14 +122,8 @@
   pointer-events: none;
 }
 
-.floating-text-format-popup .divider {
+.floatingTextFormatPopup .divider {
   width: 1px;
   background-color: #eee;
   margin: 0 4px;
-}
-
-@media (max-width: 1024px) {
-  .floating-text-format-popup button.insert-comment {
-    display: none;
-  }
 }

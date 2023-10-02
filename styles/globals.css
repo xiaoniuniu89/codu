@@ -51,7 +51,7 @@ body {
   @apply from-orange-300 to-pink-500;
 }
 
-.prose .anchor {
+.prose .anchor,  .ProseMirror .anchor {
   @apply absolute invisible no-underline;
 
   margin-left: -1em;
@@ -65,49 +65,49 @@ body {
   @apply visible;
 }
 
-.prose a {
+.prose a, .ProseMirror a {
   @apply transition-all;
 }
-.prose blockquote p::before {
+.prose blockquote p::before, .ProseMirror blockquote p::before {
   content: none;
 }
 
-.prose .anchor:after {
+.prose .anchor:after, .ProseMirror .anchor:after{
   @apply text-neutral-300 dark:text-neutral-700;
   content: "#";
 }
 
-.prose *:hover > .anchor {
+.prose *:hover > .anchor, .ProseMirror *:hover > .anchor {
   @apply visible;
 }
 
-.prose pre {
+.prose pre, .ProseMirror pre {
   @apply border-2 border-neutral-200 bg-neutral-100 dark:border-neutral-700 dark:bg-black;
 }
 
-.prose code {
+.prose code, .ProseMirror code {
   @apply text-neutral-800 dark:text-neutral-200 px-1 py-0.5 border border-neutral-100 dark:border-neutral-800 rounded-lg bg-neutral-100 dark:bg-black font-mono;
 }
 
-.prose code:after {
+.prose code:after, .ProseMirror code:after {
   content: none;
 }
 
-.prose code:before {
+.prose code:before, .ProseMirror code:before {
   content: none;
 }
 
-.prose pre code {
+.prose pre code, .ProseMirror pre code {
   @apply text-neutral-800 dark:text-neutral-200 p-0;
   border: initial;
 }
 
-.prose img {
+.prose img, .ProseMirror img {
   /* Don't apply styles to next/image */
   @apply m-0;
 }
 
-.prose > :first-child {
+.prose > :first-child, .ProseMirror > :first-child {
   /* Override removing top margin, causing layout shift */
   margin-top: 1.25em !important;
   margin-bottom: 1.25em !important;
@@ -214,7 +214,7 @@ input[type="email"] {
   @apply my-0;
 }
 
-.prose .tweet a {
+.prose .tweet a, .ProseMirror .tweet a {
   text-decoration: inherit;
   font-weight: inherit;
 }
@@ -226,13 +226,11 @@ table {
   white-space: nowrap;
 }
 
-.prose .callout > p {
+.prose .callout > p, .ProseMirror .callout > p {
   margin: 0 !important;
 }
 
-.slateP > p {
-  margin: 0 !important;
-}
+
 
 /* Loading animation */
 .loader-dots div {
@@ -254,114 +252,6 @@ table {
   left: 56px;
   animation: loader-dots3 0.6s infinite;
 }
-
-/* plate editor style overrides  */
-/* TODO: we should set what styles we can in the components directly */
-
-input[placeholder="Paste link"] {
-  color: black;
-}
-
-input[placeholder="Text to display"] {
-  color: black;
-}
-
-.slate-kbd,
-.slate-code_line {
-  color: black;
-}
-
-[class^="PlateFloatingLink"],
-[class^="PlateFloatingMedia"] {
-  color: black;
-}
-
-[data-testid="CodeBlockSelectElement"] {
-  position: absolute;
-  right: 10px;
-  width: 20px;
-}
-
-[data-slate-editor="true"] {
-}
-
-.slate-code_block {
-  min-height: 60px;
-}
-
-.slate-code_block select {
-  position: absolute;
-  right: 10px;
-  width: 25%;
-}
-
-.slate-ImageElement-caption {
-  max-height: 22px;
-}
-
-.slate-ul {
-  list-style-type: disc;
-}
-
-.slate-ol {
-  list-style-type: decimal;
-}
-
-.slate-MediaEmbedElement-handleRight,
-.slate-MediaEmbedElement-handleLeft,
-.slate-MediaEmbedElement-caption {
-  display: none !important;
-}
-
-.jsCcLr {
-  padding-bottom: 10px !important;
-}
-
-.slate-a,
-.slateP a {
-  color: #1e90ff !important;
-  text-decoration: none !important;
-  cursor: pointer;
-}
-
-.slate-a:hover,
-.slateP a:hover {
-  color: #87ceeb !important;
-  text-decoration: none !important;
-}
-
-.slate-blockquote,
-blockquote {
-  font-style: italic;
-  color: #f3f4f6 !important;
-  border-left-width: 0.25rem !important;
-  padding-left: 1em !important;
-  border-color: #f3f4f6 !important;
-}
-
-.slate-ImageElement-caption {
-  color: #9ca3af !important;
-  font-size: 0.8em !important;
-}
-
-.slateP li,
-.slateP ol,
-.slateP ul {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.slate-li {
-  color: #d1d5db !important;
-  padding-left: 0.4em;
-  line-height: 1.2em;
-}
-
-.slate-li::marker {
-  color: #4b5563;
-}
-
-/* end of plate editor styles  */
 
 @keyframes loader-dots1 {
   0% {

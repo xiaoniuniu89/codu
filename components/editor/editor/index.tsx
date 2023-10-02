@@ -34,7 +34,7 @@ export default function Editor({onChange, initialValue}: EditorProps) {
     >
       {editor && <EditorBubbleMenu editor={editor} />}
       {editor?.isActive("image") && <ImageResizer editor={editor} />}
-      <EditorContent editor={editor}/>
+      <EditorContent editor={editor} className='prose prose-invert lg:prose-lg'/>
     </div>
   );
 }

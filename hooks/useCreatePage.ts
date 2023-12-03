@@ -3,7 +3,7 @@
 
 import { ZodError } from "zod";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -12,7 +12,7 @@ import { ConfirmPostSchema } from "../schema/post";
 
 import { api } from "@/server/trpc/react";
 import { useDebounce } from "./useDebounce";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export type useCreatePageReturnType = {
   viewPreview: boolean;
@@ -69,6 +69,7 @@ function useCreatePage({
   const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false);
   const [delayDebounce, setDelayDebounce] = useState<boolean>(false);
   const allowUpdate = unsavedChanges && !delayDebounce;
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -242,8 +243,8 @@ function useCreatePage({
 
   useEffect(() => {
     if (!createData?.id) return;
-    redirect(`/alpha/new/${createData.id}`);
-  }, [createData]);
+    router.push(`/alpha/new/${createData.id}`);
+  }, [createData, router]);
 
   const hasContent = title.length >= 5 && body.length >= 10;
 

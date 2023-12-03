@@ -1,18 +1,20 @@
-"use client";
-
 import { useEditor, EditorContent } from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
 import { CustomCodeBlockEdit, TiptapExtensions } from "./extensions";
 import { EditorBubbleMenu } from "./components/bubble-menu";
 import { MediaResizer } from "./components/image-resizer";
 import Toolbar from "./components/Toolbar/Toolbar";
+import React, { forwardRef, Ref } from "react";
 
 interface EditorProps {
   initialValue: string;
   onChange: (value: string) => void;
 }
 
-export default function Editor({ onChange, initialValue }: EditorProps) {
+const Editor = forwardRef(function EditorComponent(
+  { onChange, initialValue }: EditorProps,
+  ref: Ref<HTMLDivElement>,
+) {
   const editor = useEditor({
     extensions: [...TiptapExtensions, CustomCodeBlockEdit],
     editorProps: TiptapEditorProps,
@@ -26,9 +28,9 @@ export default function Editor({ onChange, initialValue }: EditorProps) {
   });
 
   return (
-    // TODO: Review this for no-static-element-interactions click-events-have-key-events
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    // eslint-disable-next-line
     <div
+      ref={ref}
       className="relative"
       onClick={() => {
         editor?.chain().focus().run();
@@ -42,4 +44,8 @@ export default function Editor({ onChange, initialValue }: EditorProps) {
       <EditorContent editor={editor} />
     </div>
   );
-}
+});
+
+Editor.displayName = "Editor";
+
+export default Editor;

@@ -25,8 +25,8 @@ export type useCreatePageReturnType = {
   setSavedTime: React.Dispatch<React.SetStateAction<string>>;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  unsavedChanges: boolean;
-  setUnsavedChanges: React.Dispatch<React.SetStateAction<boolean>>;
+  hasUnsavedChanges: boolean;
+  setHasUnsavedChanges: React.Dispatch<React.SetStateAction<boolean>>;
   allowUpdate: boolean;
   handleSubmit: any;
   register: any;
@@ -66,9 +66,9 @@ function useCreatePage({
   const [savedTime, setSavedTime] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [shouldRefetch, setShouldRefetch] = useState<boolean>(true);
-  const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   const [delayDebounce, setDelayDebounce] = useState<boolean>(false);
-  const allowUpdate = unsavedChanges && !delayDebounce;
+  const allowUpdate = hasUnsavedChanges && !delayDebounce;
   const router = useRouter();
 
   const {
@@ -169,7 +169,7 @@ function useCreatePage({
     } else {
       save({ ...updatedFormData, id: postId });
     }
-    setUnsavedChanges(false);
+    setHasUnsavedChanges(false);
   };
 
   const hasLoadingState =
@@ -252,7 +252,7 @@ function useCreatePage({
 
   useEffect(() => {
     if ((title + body).length < 5) return;
-    if (isDirty) setUnsavedChanges(true);
+    if (isDirty) setHasUnsavedChanges(true);
   }, [title, body]);
 
   const handleOpenDialog = (res: string) => {
@@ -261,7 +261,7 @@ function useCreatePage({
         setDelayDebounce(true);
         break;
       case "confirm":
-        setUnsavedChanges(false);
+        setHasUnsavedChanges(false);
         setDelayDebounce(false);
         break;
       case "cancel":
@@ -271,7 +271,7 @@ function useCreatePage({
       default:
         // setting allowUpdate in this case
         setDelayDebounce(false);
-        setUnsavedChanges(true);
+        setHasUnsavedChanges(true);
     }
   };
 
@@ -286,8 +286,8 @@ function useCreatePage({
     setSavedTime,
     open,
     setOpen,
-    unsavedChanges,
-    setUnsavedChanges,
+    hasUnsavedChanges,
+    setHasUnsavedChanges,
     allowUpdate,
     handleSubmit,
     register,

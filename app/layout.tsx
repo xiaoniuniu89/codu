@@ -11,6 +11,7 @@ import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
 import React from "react";
 import A11yProvider from "@/components/A11yProvider/A11yProvider";
+import { PromptServiceProvider } from "@/context/PromptServiceContext";
 
 // @TODO layout app in way that doesn't need to use client session check
 export const metadata = {
@@ -63,10 +64,12 @@ export default async function RootLayout({
           <AuthProvider>
             <ThemeProvider>
               <TRPCReactProvider headers={headers()}>
-                <Toaster />
+                <PromptServiceProvider>
+                  <Toaster />
                 <Nav session={session} />
-                {children}
-                <Footer />
+                  {children}
+                  <Footer />
+                </PromptServiceProvider>
               </TRPCReactProvider>
             </ThemeProvider>
           </AuthProvider>

@@ -1,15 +1,14 @@
 "use client";
 
 import { redirect, useParams } from "next/navigation";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
-// @TODO fix PromptDiaglog
-// import { PromptDialog } from "@/components/PromptService/PromptService";
 import Editor from "@/components/editor/editor";
 import RenderPost from "@/components/editor/editor/RenderPost";
 import useCreatePage from "@/hooks/useCreatePage";
+import { usePromptService } from "@/context/PromptServiceContext";
 
 const Create = () => {
   const params = useParams();
@@ -23,7 +22,7 @@ const Create = () => {
     savedTime,
     open,
     setOpen,
-    unsavedChanges,
+    hasUnsavedChanges,
     handleSubmit,
     register,
     control,
@@ -42,6 +41,12 @@ const Create = () => {
     saveStatus,
   } = useCreatePage({ postId });
 
+  const { unsavedChanges, setUnsavedChanges } = usePromptService();
+
+  useEffect(() => {
+    setUnsavedChanges(hasUnsavedChanges);
+  }, [hasUnsavedChanges, setUnsavedChanges]);
+
   return (
     <>
       <button
@@ -51,13 +56,6 @@ const Create = () => {
       >
         Preview
       </button>
-      {/* <PromptDialog
-        shouldConfirmLeave={unsavedChanges}
-        updateParent={handleOpenDialog}
-        title="Unsaved Changes"
-        subTitle="You have unsaved changes."
-        content="Changes that you have made will be lost."
-      /> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Transition.Root show={open} as={Fragment}>
           <div className="fixed bottom-0 left-0 top-0 z-50 h-screen w-full bg-black">

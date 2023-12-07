@@ -3,8 +3,10 @@ import { api } from "@/server/trpc/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { signIn, signOut } from "next-auth/react";
-import Link from "next/link";
-import { Fragment } from "react";
+import Link from "../Link/Link";
+import { done as _done } from "nprogress";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Fragment, useEffect } from "react";
 import { navigation } from "../../config/site_settings";
 import { type Session } from "next-auth";
 import ThemeToggle from "../Theme/ThemeToggle/ThemeToggle";
@@ -32,6 +34,13 @@ const Nav = ({ session }: { session: Session | null }) => {
 
   const hasNotifications = !!count && count > 0;
 
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    _done();
+  }, [pathname, searchParams]);
+
   return (
     <Disclosure as="nav" className="bg-neutral-100 dark:bg-black">
       {({ open }) => (
@@ -43,7 +52,7 @@ const Nav = ({ session }: { session: Session | null }) => {
                   <span className="sr-only">Codú</span>
                   <Link
                     className="-ml-2 flex w-auto items-baseline p-2 text-neutral-800 transition-colors ease-in-out hover:text-neutral-600 focus:text-neutral-600 dark:text-neutral-50 dark:hover:text-neutral-300 focus:dark:text-neutral-300"
-                    href="/"
+                    to="/"
                   >
                     <Logo className="h-5 lg:h-6" />
                     <span className="ml-1 text-xs font-medium text-neutral-600 dark:text-neutral-400">
@@ -68,7 +77,7 @@ const Nav = ({ session }: { session: Session | null }) => {
                         <Link
                           className="nav-button"
                           key={item.name}
-                          href={item.href}
+                          to={item.href}
                         >
                           {item.name}
                         </Link>
@@ -81,11 +90,11 @@ const Nav = ({ session }: { session: Session | null }) => {
                 <div className="flex items-center space-x-2 text-sm font-medium lg:text-base">
                   {session ? (
                     <>
-                      <Link className="nav-button" href="/my-posts">
+                      <Link className="nav-button" to="/my-posts">
                         Your Posts
                       </Link>
 
-                      <Link className="primary-button px-4" href="/create">
+                      <Link className="primary-button px-4" to="/create">
                         <PlusIcon className="-ml-2 mr-1 h-5 w-5 p-0 text-white" />
                         New Post
                       </Link>
@@ -111,8 +120,8 @@ const Nav = ({ session }: { session: Session | null }) => {
                   {session && (
                     <>
                       <Link
-                        title="Notifications"
-                        href="/notifications"
+                        // title="Notifications"
+                        to="/notifications"
                         className="focus-style relative flex-shrink-0 rounded-md  p-2 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-600 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
                       >
                         <span className="sr-only">View notifications</span>
@@ -162,7 +171,7 @@ const Nav = ({ session }: { session: Session | null }) => {
                                 ) : (
                                   <Link
                                     className="block rounded px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-200"
-                                    href={item.href || ""}
+                                    to={item.href || ""}
                                   >
                                     {item.name}
                                   </Link>
@@ -180,8 +189,8 @@ const Nav = ({ session }: { session: Session | null }) => {
                 <ThemeToggle />
                 {session && (
                   <Link
-                    title="Notifications"
-                    href="/notifications"
+                    // title="Notifications"
+                    to="/notifications"
                     className="focus-style relative flex-shrink-0 rounded-md  p-2 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-600 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white  "
                   >
                     <span className="sr-only">View notifications</span>

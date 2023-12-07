@@ -38,7 +38,6 @@ const Nav = ({ session }: { session: Session | null }) => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log(pathname);
     _done();
   }, [pathname, searchParams]);
 
